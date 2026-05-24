@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import authRoutes from "./modules/auth/auth.routes";
+import userRoutes from "./modules/users/user.routes";
 
 const app = express();
 
@@ -19,5 +21,8 @@ app.get("/", (_req, res) => {
     message: "Ticketmaster Clone API Running",
   });
 });
+
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 export default app;
