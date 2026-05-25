@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const ticketSchema = new mongoose.Schema(
   {
-    orderId: {
+    ownerId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
+      ref: "User",
       required: true,
     },
 
@@ -14,9 +14,28 @@ const ticketSchema = new mongoose.Schema(
       required: true,
     },
 
-    ownerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    firstName: {
+      type: String,
+      required: true,
+    },
+
+    lastName: {
+      type: String,
+      required: true,
+    },
+
+    email: {
+      type: String,
+      required: true,
+    },
+
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+
+    ticketType: {
+      type: String,
       required: true,
     },
 
@@ -40,7 +59,7 @@ const ticketSchema = new mongoose.Schema(
       required: true,
     },
 
-    ticketType: {
+    orderNumber: {
       type: String,
       required: true,
     },
@@ -51,15 +70,15 @@ const ticketSchema = new mongoose.Schema(
       unique: true,
     },
 
-    orderNumber: {
-      type: String,
-      required: true,
-    },
-
     barcode: {
       type: String,
       required: true,
       unique: true,
+    },
+
+    transferNote: {
+      type: String,
+      default: "",
     },
 
     status: {
@@ -85,6 +104,9 @@ ticketSchema.index(
   }
 );
 
-const Ticket = mongoose.model("Ticket", ticketSchema);
+const Ticket = mongoose.model(
+  "Ticket",
+  ticketSchema
+);
 
 export default Ticket;
