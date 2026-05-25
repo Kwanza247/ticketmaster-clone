@@ -2,6 +2,12 @@ import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema(
   {
+    ownerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     title: {
       type: String,
       required: true,
@@ -42,6 +48,9 @@ const eventSchema = new mongoose.Schema(
   }
 );
 
-const Event = mongoose.model("Event", eventSchema);
+const Event = mongoose.model(
+  "Event",
+  eventSchema
+);
 
 export default Event;
