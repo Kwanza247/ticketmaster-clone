@@ -5,7 +5,7 @@ import morgan from "morgan";
 import authRoutes from "./modules/auth/auth.routes";
 import userRoutes from "./modules/users/user.routes";
 import eventRoutes from "./modules/events/event.routes";
-
+import ticketRoutes from "./modules/tickets/ticket.routes";
 const app = express();
 
 app.use(cors());
@@ -26,5 +26,6 @@ app.get("/", (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/tickets", ticketRoutes);
 
 export default app;
