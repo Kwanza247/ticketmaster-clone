@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema(
       unique: true,
     },
 
-    totalTickets: {
+    ticketCount: {
       type: Number,
       required: true,
     },
@@ -30,6 +30,9 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model(
+  "Order",
+  orderSchema
+);
 
 export default Order;
