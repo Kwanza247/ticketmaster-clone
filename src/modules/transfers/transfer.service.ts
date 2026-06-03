@@ -1,22 +1,30 @@
 import Order from "../orders/order.model";
 import Ticket from "../tickets/ticket.model";
+import Transfer from "./transfer.model";
 
-const validateTransfer = async (
+const transferTickets = async (
   ownerId: string,
-  orderId: string,
-  ticketIds: string[],
-  recipientName: string
+  payload: any
 ) => {
-  const order =
-    await Order.findOne({
-      _id: orderId,
-      ownerId,
-    });
+  const {
+    orderId,
+    ticketIds,
+
+    firstName,
+    lastName,
+    email,
+    phone,
+
+    note,
+  } = payload;
+
+  const order = await Order.findOne({
+    _id: orderId,
+    ownerId,
+  });
 
   if (!order) {
-    throw new Error(
-      "Order not found"
-    );
+    throw new Error("Order not found");
   }
 
   if (
@@ -24,27 +32,80 @@ const validateTransfer = async (
     order.ticketCount
   ) {
     throw new Error(
-      `Error transferring to ${recipientName}. Only sending all ${order.ticketCount} tickets can go through.`
+      `Error transferring to ${firstName} ${lastName}. Only sending all ${order.ticketCount} tickets can go through.`
     );
   }
 
-  const tickets =
-    await Ticket.find({
-      _id: { $in: ticketIds },
-      ownerId,
-      orderId,
-    });
+  const tickets = await Ticket.find({
+    _id: {
+      $in: ticketIds,
+    },
+
+    ownerId,
+
+    orderId,
+  });
 
   if (
     tickets.length !==
     order.ticketCount
   ) {
     throw new Error(
-      "Invalid ticket selection"
+      "Invalid ticket selection."
     );
   }
 
-  return order;
+  // CREATE TRANSFER RECORD
+
+  const transfer =
+    await Transfer.create({
+      senderId: ownerId,
+
+      orderId,
+
+      ticketIds,
+
+      recipientFirstName:
+        firstName,
+
+      recipientLastName:
+        lastName,
+
+      recipientEmail: email,
+
+      recipientPhone: phone,
+
+      note,
+
+      status: "COMPLETED",
+    });
+
+  // UPDATE TICKETS
+
+  await Ticket.updateMany(
+    {
+      _id: {
+        $in: ticketIds,
+      },
+    },
+    {
+      status: "TRANSFERRED",
+
+      recipientFirstName:
+        firstName,
+
+      recipientLastName:
+        lastName,
+
+      recipientEmail: email,
+
+      recipientPhone: phone,
+    }
+  );
+
+  return transfer;
 };
 
-export default validateTransfer;
+export default {
+  transferTickets,
+};
