@@ -9,12 +9,10 @@ const transferTickets = async (
   const {
     orderId,
     ticketIds,
-
     firstName,
     lastName,
     email,
     phone,
-
     note,
   } = payload;
 
@@ -37,12 +35,8 @@ const transferTickets = async (
   }
 
   const tickets = await Ticket.find({
-    _id: {
-      $in: ticketIds,
-    },
-
+    _id: { $in: ticketIds },
     ownerId,
-
     orderId,
   });
 
@@ -54,8 +48,6 @@ const transferTickets = async (
       "Invalid ticket selection."
     );
   }
-
-  // CREATE TRANSFER RECORD
 
   const transfer =
     await Transfer.create({
@@ -80,8 +72,6 @@ const transferTickets = async (
       status: "COMPLETED",
     });
 
-  // UPDATE TICKETS
-
   await Ticket.updateMany(
     {
       _id: {
@@ -100,6 +90,8 @@ const transferTickets = async (
       recipientEmail: email,
 
       recipientPhone: phone,
+
+      transferNote: note,
     }
   );
 
