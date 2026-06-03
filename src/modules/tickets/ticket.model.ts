@@ -14,6 +14,12 @@ const ticketSchema = new mongoose.Schema(
       required: true,
     },
 
+    orderId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
+      required: true,
+    },
+
     firstName: {
       type: String,
       required: true,
@@ -32,6 +38,22 @@ const ticketSchema = new mongoose.Schema(
     phoneNumber: {
       type: String,
       required: true,
+    },
+
+    recipientFirstName: {
+      type: String,
+    },
+
+    recipientLastName: {
+      type: String,
+    },
+
+    recipientEmail: {
+      type: String,
+    },
+
+    recipientPhone: {
+      type: String,
     },
 
     ticketType: {
