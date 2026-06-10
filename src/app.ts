@@ -9,6 +9,7 @@ import ticketRoutes from "./modules/tickets/ticket.routes";
 import transferRoutes from "./modules/transfers/transfer.routes";
 import orderRoutes from "./modules/orders/order.routes";
 import dashboardRoutes from "./modules/dashboard/dashboard.routes";
+import errorMiddleware from "./middlewares/error.middleware";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 app.use(express.json());
+
 
 app.get("/", (_req, res) => {
   res.status(200).json({
@@ -48,5 +50,7 @@ app.use(
   "/api/transfers",
   transferRoutes
 );
+
+app.use(errorMiddleware);
 
 export default app;
