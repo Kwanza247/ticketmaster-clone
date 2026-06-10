@@ -49,11 +49,11 @@ const getMyEvents = asyncHandler(
   }
 );
 
-const getSingleEvent = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const getSingleEvent = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const event =
       await eventService.getSingleEvent(
         req.params.id,
@@ -64,13 +64,8 @@ const getSingleEvent = async (
       success: true,
       data: event,
     });
-  } catch (error: any) {
-    res.status(404).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
+);
 
 const updateEvent = async (
   req: any,
