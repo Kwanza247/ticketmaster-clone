@@ -13,3 +13,6 @@ export const createEventSchema = z.object({
 
   state: z.string(),
 });
+
+export const updateEventSchema =
+  createEventSchema.partial();
