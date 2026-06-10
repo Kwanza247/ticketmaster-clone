@@ -4,6 +4,8 @@ import eventController from "./event.controller";
 
 import authMiddleware from "../../middlewares/auth.middleware";
 import upload from "../../config/multer";
+import validate from "../../middlewares/validate.middleware";
+import { createEventSchema } from "../../validations/event.validation";
 
 const router = express.Router();
 
@@ -11,6 +13,7 @@ router.post(
   "/",
   authMiddleware,
   upload.single("ticketImage"),
+  validate(createEventSchema),
   eventController.createEvent
 );
 
