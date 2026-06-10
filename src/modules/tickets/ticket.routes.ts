@@ -3,12 +3,14 @@ import express from "express";
 import ticketController from "./ticket.controller";
 
 import authMiddleware from "../../middlewares/auth.middleware";
-
+import validate from "../../middlewares/validate.middleware";
+import { createTicketSchema } from "../../validations/ticket.validation";
 const router = express.Router();
 
 router.post(
   "/",
   authMiddleware,
+  validate(createTicketSchema),
   ticketController.createTicket
 );
 
