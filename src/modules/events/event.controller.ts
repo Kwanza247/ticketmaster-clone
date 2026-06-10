@@ -32,11 +32,11 @@ const createEvent = asyncHandler(
   }
 );
 
-const getMyEvents = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const getMyEvents = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const events =
       await eventService.getMyEvents(
         req.user.userId
@@ -46,13 +46,8 @@ const getMyEvents = async (
       success: true,
       data: events,
     });
-  } catch (error: any) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
+);
 
 const getSingleEvent = async (
   req: any,
