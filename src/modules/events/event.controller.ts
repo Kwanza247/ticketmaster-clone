@@ -67,11 +67,11 @@ const getSingleEvent = asyncHandler(
   }
 );
 
-const updateEvent = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const updateEvent = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const event =
       await eventService.updateEvent(
         req.params.id,
@@ -85,14 +85,8 @@ const updateEvent = async (
         "Event updated successfully",
       data: event,
     });
-  } catch (error: any) {
-    res.status(404).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
-
+);
 const deleteEvent = async (
   req: any,
   res: Response
