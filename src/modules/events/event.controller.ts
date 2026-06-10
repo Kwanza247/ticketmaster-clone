@@ -13,7 +13,7 @@ const createEvent = async (
       ownerId: req.user.userId,
 
       ticketImage: req.file
-        ? `/uploads/${req.file.filename}`
+        ? (req.file as any).path
         : "",
     };
     const event =
