@@ -11,8 +11,11 @@ const createEvent = async (
       ...req.body,
 
       ownerId: req.user.userId,
-    };
 
+      ticketImage: req.file
+        ? `/uploads/${req.file.filename}`
+        : "",
+    };
     const event =
       await eventService.createEvent(
         payload
