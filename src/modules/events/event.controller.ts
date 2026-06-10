@@ -87,11 +87,11 @@ const updateEvent = asyncHandler(
     });
   }
 );
-const deleteEvent = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const deleteEvent = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     await eventService.deleteEvent(
       req.params.id,
       req.user.userId
@@ -102,14 +102,8 @@ const deleteEvent = async (
       message:
         "Event deleted successfully",
     });
-  } catch (error: any) {
-    res.status(404).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
-
+);
 export default {
   createEvent,
   getMyEvents,
