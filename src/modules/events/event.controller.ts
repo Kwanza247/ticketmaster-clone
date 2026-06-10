@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 
 import eventService from "./event.service";
+import asyncHandler from "../../utils/asyncHandler";
 
-const createEvent = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const createEvent = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const payload = {
       ...req.body,
 
@@ -16,6 +17,7 @@ const createEvent = async (
         ? (req.file as any).path
         : "",
     };
+
     const event =
       await eventService.createEvent(
         payload
@@ -27,13 +29,8 @@ const createEvent = async (
         "Event created successfully",
       data: event,
     });
-  } catch (error: any) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
+);
 
 const getMyEvents = async (
   req: any,
