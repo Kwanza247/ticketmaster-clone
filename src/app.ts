@@ -8,6 +8,7 @@ import eventRoutes from "./modules/events/event.routes";
 import ticketRoutes from "./modules/tickets/ticket.routes";
 import transferRoutes from "./modules/transfers/transfer.routes";
 import orderRoutes from "./modules/orders/order.routes";
+import dashboardRoutes from "./modules/dashboard/dashboard.routes";
 const app = express();
 
 app.use(cors());
@@ -34,6 +35,12 @@ app.use(
   transferRoutes
 );
 app.use("/api/orders", orderRoutes);
+
+app.use(
+  "/api/dashboard",
+  dashboardRoutes
+);
+
 app.use("/api/tickets", ticketRoutes);
 
 app.use(
