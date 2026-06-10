@@ -1,26 +1,29 @@
 import { z } from "zod";
 
 export const createTicketSchema =
-  z.object({
-    eventId: z.string(),
+    z.object({
+        eventId: z.string(),
 
-    ticketCount: z.number().min(1),
+        ticketCount: z.number().min(1),
 
-    firstName: z.string(),
+        firstName: z.string(),
 
-    lastName: z.string(),
+        lastName: z.string(),
 
-    email: z.email(),
+        email: z.email(),
 
-    phoneNumber: z.string(),
+        phoneNumber: z.string(),
 
-    ticketType: z.string(),
+        ticketType: z.string(),
 
-    section: z.string(),
+        section: z.string(),
 
-    row: z.string(),
+        row: z.string(),
 
-    startingSeat: z.string(),
+        startingSeat: z.string(),
 
-    seatLocation: z.string(),
-  });
+        seatLocation: z.string(),
+    });
+
+export const updateTicketSchema =
+    createTicketSchema.partial();
