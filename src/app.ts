@@ -9,6 +9,7 @@ import ticketRoutes from "./modules/tickets/ticket.routes";
 import transferRoutes from "./modules/transfers/transfer.routes";
 import orderRoutes from "./modules/orders/order.routes";
 import dashboardRoutes from "./modules/dashboard/dashboard.routes";
+import path from "path";
 const app = express();
 
 app.use(cors());
@@ -47,5 +48,13 @@ app.use(
   "/api/transfers",
   transferRoutes
 );
-
+app.use(
+  "/uploads",
+  express.static(
+    path.join(
+      process.cwd(),
+      "uploads"
+    )
+  )
+);
 export default app;
