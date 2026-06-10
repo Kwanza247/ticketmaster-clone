@@ -6,6 +6,7 @@ import authMiddleware from "../../middlewares/auth.middleware";
 import upload from "../../config/multer";
 import validate from "../../middlewares/validate.middleware";
 import { createEventSchema } from "../../validations/event.validation";
+import { updateEventSchema } from "../../validations/event.validation";
 
 const router = express.Router();
 
@@ -32,6 +33,7 @@ router.get(
 router.patch(
   "/:id",
   authMiddleware,
+  validate(updateEventSchema),
   eventController.updateEvent
 );
 
