@@ -45,11 +45,11 @@ const getMyTickets = asyncHandler(
   }
 );
 
-const getSingleTicket = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const getSingleTicket = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const ticket =
       await ticketService.getSingleTicket(
         req.params.id,
@@ -60,13 +60,8 @@ const getSingleTicket = async (
       success: true,
       data: ticket,
     });
-  } catch (error: any) {
-    res.status(404).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
+);
 
 const updateTicket = async (
   req: any,
