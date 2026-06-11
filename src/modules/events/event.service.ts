@@ -30,7 +30,13 @@ const getSingleEvent = async (
   });
 
   if (!event) {
-    throw new Error("Event not found");
+    const error: any = new Error(
+      "Event not found"
+    );
+
+    error.statusCode = 404;
+
+    throw error;
   }
 
   return event;
@@ -54,7 +60,9 @@ const updateEvent = async (
     );
 
   if (!event) {
-    throw new Error("Event not found");
+    const error: any = new Error("Event not found");
+    error.statusCode = 404;
+    throw error;
   }
 
   return event;
@@ -71,7 +79,13 @@ const deleteEvent = async (
     });
 
   if (!event) {
-    throw new Error("Event not found");
+    const error: any = new Error(
+      "Event not found"
+    );
+
+    error.statusCode = 404;
+
+    throw error;
   }
 
   return event;
