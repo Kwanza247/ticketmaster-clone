@@ -9,14 +9,26 @@ const loginUser = async (
   const user = await User.findOne({ username });
 
   if (!user) {
-    throw new Error("Invalid credentials");
+    const error: any = new Error(
+      "Invalid username or password"
+    );
+
+    error.statusCode = 401;
+
+    throw error;
   }
 
   const isPasswordCorrect =
     await bcrypt.compare(password, user.password);
 
   if (!isPasswordCorrect) {
-    throw new Error("Invalid credentials");
+    const error: any = new Error(
+      "Invalid username or password"
+    );
+
+    error.statusCode = 401;
+
+    throw error;
   }
 
   const token = generateToken(
