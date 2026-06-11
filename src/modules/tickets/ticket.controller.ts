@@ -84,11 +84,11 @@ const updateTicket = asyncHandler(
   }
 );
 
-const deleteTicket = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const deleteTicket = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     await ticketService.deleteTicket(
       req.params.id,
       req.user.userId
@@ -99,13 +99,8 @@ const deleteTicket = async (
       message:
         "Ticket deleted successfully",
     });
-  } catch (error: any) {
-    res.status(404).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
+);
 
 export default {
   createTicket,
