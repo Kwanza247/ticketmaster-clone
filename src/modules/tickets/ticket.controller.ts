@@ -63,11 +63,11 @@ const getSingleTicket = asyncHandler(
   }
 );
 
-const updateTicket = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const updateTicket = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const ticket =
       await ticketService.updateTicket(
         req.params.id,
@@ -81,13 +81,8 @@ const updateTicket = async (
         "Ticket updated successfully",
       data: ticket,
     });
-  } catch (error: any) {
-    res.status(404).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
+);
 
 const deleteTicket = async (
   req: any,
