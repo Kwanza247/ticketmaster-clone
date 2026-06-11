@@ -22,16 +22,26 @@ const transferTickets = async (
     });
 
     if (!order) {
-        throw new Error("Order not found");
+        const error: any = new Error(
+            "Order not found"
+        );
+
+        error.statusCode = 404;
+
+        throw error;
     }
 
     if (
         ticketIds.length !==
         order.ticketCount
     ) {
-        throw new Error(
+        const error: any = new Error(
             `Error transferring to ${firstName} ${lastName}. Only sending all ${order.ticketCount} tickets can go through.`
         );
+
+        error.statusCode = 400;
+
+        throw error;
     }
 
     const tickets = await Ticket.find({
@@ -44,9 +54,13 @@ const transferTickets = async (
         tickets.length !==
         order.ticketCount
     ) {
-        throw new Error(
+        const error: any = new Error(
             "Invalid ticket selection."
         );
+
+        error.statusCode = 400;
+
+        throw error;
     }
 
     const transfer =
