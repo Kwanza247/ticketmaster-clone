@@ -1,12 +1,13 @@
 import { Response } from "express";
 
 import ticketService from "./ticket.service";
+import asyncHandler from "../../utils/asyncHandler";
 
-const createTicket = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const createTicket = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const payload = {
       ...req.body,
 
@@ -24,13 +25,8 @@ const createTicket = async (
         "Ticket created successfully",
       data: ticket,
     });
-  } catch (error: any) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
+);
 
 const getMyTickets = async (
   req: any,
