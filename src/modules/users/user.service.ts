@@ -11,7 +11,13 @@ const createUser = async (
   });
 
   if (existingUser) {
-    throw new Error("Username already exists");
+    const error: any = new Error(
+      "Username already exists"
+    );
+
+    error.statusCode = 409;
+
+    throw error;
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
