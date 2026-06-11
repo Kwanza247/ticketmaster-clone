@@ -28,11 +28,11 @@ const createTicket = asyncHandler(
   }
 );
 
-const getMyTickets = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const getMyTickets = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const tickets =
       await ticketService.getMyTickets(
         req.user.userId
@@ -42,13 +42,8 @@ const getMyTickets = async (
       success: true,
       data: tickets,
     });
-  } catch (error: any) {
-    res.status(400).json({
-      success: false,
-      message: error.message,
-    });
   }
-};
+);
 
 const getSingleTicket = async (
   req: any,
