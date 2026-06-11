@@ -1,12 +1,13 @@
 import { Response } from "express";
 
 import transferService from "./transfer.service";
+import asyncHandler from "../../utils/asyncHandler";
 
-const transferTickets = async (
-  req: any,
-  res: Response
-) => {
-  try {
+const transferTickets = asyncHandler(
+  async (
+    req: any,
+    res: Response
+  ) => {
     const transfer =
       await transferService.transferTickets(
         req.user.userId,
@@ -19,16 +20,8 @@ const transferTickets = async (
         "Tickets transferred successfully",
       data: transfer,
     });
-  } catch (error: any) {
-    res.status(400).json({
-      success: false,
-
-      title: "Transfer Error",
-
-      message: error.message,
-    });
   }
-};
+);
 
 export default {
   transferTickets,
