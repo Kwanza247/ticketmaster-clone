@@ -173,7 +173,13 @@ const deleteTicket = async (
     });
 
   if (!ticket) {
-    throw new Error("Ticket not found");
+    const error: any = new Error(
+  "Ticket not found"
+);
+
+error.statusCode = 404;
+
+throw error;
   }
 
   return ticket;
